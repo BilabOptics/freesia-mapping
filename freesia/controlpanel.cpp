@@ -15,7 +15,7 @@ class SpinBox:public QDoubleSpinBox{
 public:
     SpinBox(int type){
         if(0==type){setRange(-90,90);setSingleStep(1);}
-        else if(1==type){setRange(-10000,10000);setSingleStep(20);setDecimals(0);}
+        else if(1==type){setRange(-100000,100000);setSingleStep(20);setDecimals(0);}
         else if(2==type){setValue(1);setRange(0.1,10);setDecimals(3);setSingleStep(0.002);}
 
         setFocusPolicy(Qt::StrongFocus);
@@ -44,7 +44,7 @@ ControlPanel::ControlPanel():m_groupIndex(-1){
     connect(m_rotation3dX,valueChanged,this,&ControlPanel::valueChanged3d);
     connect(m_rotation3dY,valueChanged,this,&ControlPanel::valueChanged3d);
 
-    m_offset3dX=new SpinBox(1);m_offset3dY=new SpinBox(1);m_offset3dZ=new SpinBox(1);m_offset3dZ->setRange(-100000,100000);
+    m_offset3dX=new SpinBox(1);m_offset3dY=new SpinBox(1);m_offset3dZ=new SpinBox(1);m_offset3dZ->setRange(-1000000,1000000);
     connect(m_offset3dX,valueChanged,this,&ControlPanel::valueChanged3d);
     connect(m_offset3dY,valueChanged,this,&ControlPanel::valueChanged3d);
     connect(m_offset3dZ,valueChanged,this,&ControlPanel::valueChanged3d);

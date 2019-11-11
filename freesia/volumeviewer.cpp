@@ -106,6 +106,7 @@ void VolumeViewer::setBuffer(char *buffer,const cv::Point3i &volumeSize,const cv
     vtkSmartPointer<vtkGPUVolumeRayCastMapper> volumeMapperGpu=vtkSmartPointer<vtkGPUVolumeRayCastMapper>::New();
     volumeMapperGpu->SetInputData(imageData);volumeMapperGpu->SetSampleDistance(1.0);
     volumeMapperGpu->SetAutoAdjustSampleDistances(1);volumeMapperGpu->SetBlendMode(vtkVolumeMapper::MAXIMUM_INTENSITY_BLEND);
+    volumeMapperGpu->SetUseJittering(true);
 
     vtkSmartPointer<vtkVolumeProperty> volumeProperty=vtkSmartPointer<vtkVolumeProperty>::New();
     volumeProperty->SetInterpolationTypeToLinear();volumeProperty->ShadeOff();

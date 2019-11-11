@@ -66,7 +66,7 @@ ImportDialog::ImportDialog(){
     voxelWidget->setLayout(voxelLyt);voxelLyt->setContentsMargins(0,0,0,0);
     for(int i=0;i<2;i++){
         QDoubleSpinBox *p=new QDoubleSpinBox;m_voxelBoxes[i]=p;
-        p->setRange(0,100);p->setValue(1);voxelLyt->addWidget(p);
+        p->setRange(0,1000);p->setValue(1);voxelLyt->addWidget(p);
     }
     Common *c=Common::i();QStringList voxelValues=c->readConfig("import_voxels").split(" ");
     if(voxelValues.length()==2){for(int i=0;i<2;i++){m_voxelBoxes[i]->setValue(voxelValues[i].toFloat());}}
