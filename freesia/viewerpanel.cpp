@@ -560,7 +560,7 @@ bool ViewerPanel::selectRegion(){
     BrainRegionModel *model=BrainRegionModel::i();
     Point3i size,voxelSize;model->getModelSize(size,voxelSize);
     char *data=(0==color?nullptr:model->getRegionVoxelByColor(color));
-    m_volumeViewer->setBuffer(data,size,voxelSize);if(nullptr!=data){free(data);}
+    m_volumeViewer->setBuffer2(data,size,voxelSize);if(nullptr!=data){free(data);}
 
     m_bImageUpdated=true;return true;
 }
