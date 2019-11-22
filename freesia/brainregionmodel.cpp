@@ -44,7 +44,7 @@ bool BrainRegionModel::loadRegions(const QString &filePath){
     QMapIterator<QString,QVariant> iter(params);
     while(iter.hasNext()){
         iter.next();QVariantMap item=iter.value().toMap();//if(item["graph_order"].toInt()==0){continue;}
-        int sId=item["id"].toInt();QString acronym=item["acronym"].toString(),name=item["name"].toString();
+        int sId=item["id"].toInt();QString acronym=item["acronym"].toString(),name=item["safe_name"].toString();
         bool bOK;int parentId=item["parent_structure_id"].toInt(&bOK);if(!bOK){parentId=-1;}
         int color=item["label_color"].toInt();if(color<=0){continue;}
         RegionNode *node=new RegionNode(sId,parentId,acronym,name,color);
@@ -83,7 +83,7 @@ bool BrainRegionModel::loadSelectedModel(){
     foreach(RegionNode *node,m_color2Regions){
         int n=node->voxelIndexes.length();QStringList pathNames;
         for(RegionNode *p=node;nullptr!=p;p=p->parentNode){p->totalVoxelNumber+=n;pathNames.prepend(p->acronym);}
-        node->path=pathNames.join("/");
+        node->path=pathNames.join("/");node->level=pathNames.length();
     }
 
     emit c->showMessage("Done",500);return true;
@@ -113,11 +113,12 @@ bool BrainRegionModel::dumpCellCounting(size_t colorCounts[], const QString &fil
     }
     double voxelSize3d=pow(m_voxelSize,3);
 
-    QTextStream out(&file);out<<"id,acronym,count,density,volume,path,name\n";
+    QTextStream out(&file);out<<"id,acronym,count,density,volume,path,level,name\n";
     foreach(RegionNode *node,m_color2Regions){
         size_t n=colorCounts[node->color];int n1=node->totalVoxelNumber;if(n1<=0){continue;}
         double volume=n1*voxelSize3d,density=n/volume;
-        out<<node->id<<","<<node->acronym<<","<<colorCounts[node->color]<<","<<density<<","<<volume<<","<<node->path<<","<<node->name<<"\n";
+        out<<node->id<<","<<node->acronym<<","<<colorCounts[node->color]<<","<<density
+          <<","<<volume<<","<<node->path<<","<<node->level<<","<<node->name<<"\n";
     }
 
     out.flush();file.close();return true;

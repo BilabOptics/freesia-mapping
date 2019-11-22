@@ -14,7 +14,7 @@ struct ModelInfo{
     float voxelSize;cv::Point3i dimension;
 };
 struct RegionNode{
-    int id,parentId,color;QString acronym,name,path;
+    int id,parentId,color,level;QString acronym,name,path;
     QList<RegionNode*> subRegions;RegionNode *parentNode;
     QList<int> voxelIndexes;int totalVoxelNumber;
 
