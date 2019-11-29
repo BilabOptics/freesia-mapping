@@ -10,6 +10,8 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
+#include <QFileInfo>
+#include <QDir>
 
 using namespace cv;
 
@@ -113,13 +115,26 @@ bool BrainRegionModel::dumpCellCounting(size_t colorCounts[], const QString &fil
     }
     double voxelSize3d=pow(m_voxelSize,3);
 
-    QTextStream out(&file);out<<"id,acronym,count,density,volume,path,level,name\n";
+    QFileInfo info(filePath);QString regionPath=info.dir().absoluteFilePath("regions.txt");
+    QFile regionFile(regionPath),filteredFile(info.dir().absoluteFilePath(info.baseName()+"-regions."+info.suffix()));
+    bool bRegionExisted=regionFile.exists()&&regionFile.open(QIODevice::ReadOnly)&&filteredFile.open(QIODevice::WriteOnly);
+    QStringList regionAcronyms;if(bRegionExisted){QTextStream in(&regionFile);while(!in.atEnd()){regionAcronyms.append(in.readLine());}}
+    //qDebug()<<bRegionExisted<<regionAcronyms;
+
+    QTextStream out(&file),outRegion;out<<"id,acronym,count,density,volume,path,level,name\n";
+    if(bRegionExisted){outRegion.setDevice(&filteredFile);outRegion<<"id,acronym,count,density,volume,path,level,name\n";}
     foreach(RegionNode *node,m_color2Regions){
         size_t n=colorCounts[node->color];int n1=node->totalVoxelNumber;if(n1<=0){continue;}
         double volume=n1*voxelSize3d,density=n/volume;
         out<<node->id<<","<<node->acronym<<","<<colorCounts[node->color]<<","<<density
           <<","<<volume<<","<<node->path<<","<<node->level<<","<<node->name<<"\n";
+
+        if(regionAcronyms.contains(node->acronym)){
+            outRegion<<node->id<<","<<node->acronym<<","<<colorCounts[node->color]<<","<<density
+                    <<","<<volume<<","<<node->path<<","<<node->level<<","<<node->name<<"\n";
+        }
     }
 
+    if(bRegionExisted){outRegion.flush();filteredFile.close();}
     out.flush();file.close();return true;
 }
