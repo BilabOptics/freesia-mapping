@@ -306,7 +306,7 @@ bool ViewerPanel::loadProject(){
         QVariantList slices=params["transform_2d"].toList();
         foreach(QVariant v,slices){
             QVariantMap v1=v.toMap();Group *slice=new Group;int index=v1["group_index"].toInt();slice->param.sliceIndex=index;m_groups[index]=slice;
-            QStringList rotations=v1["rotation"].toString().split(" "),offsets=v1["translation"].toString().split(" "),scales=params["scale"].toString().split(" ");
+            QStringList rotations=v1["rotation"].toString().split(" "),offsets=v1["translation"].toString().split(" "),scales=v1["scale"].toString().split(" ");
             if(rotations.length()==1){slice->param.rotation[2]=rotations[0].toDouble();}
             if(offsets.length()==2){slice->param.offset[0]=offsets[0].toDouble();slice->param.offset[1]=offsets[1].toDouble();}
             if(scales.length()==2){slice->param.scale[0]=scales[0].toDouble();slice->param.scale[1]=scales[1].toDouble();}
