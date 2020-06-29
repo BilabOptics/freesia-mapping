@@ -367,6 +367,7 @@ void SectionViewer::keyPressEvent(QKeyEvent *e){
 
     case Qt::Key_Z:{g_bVolumnPicking=true;}break;
     case Qt::Key_X:{g_bPropPicking=true;}break;
+    case Qt::Key_B:{emit Common::i()->buildWarpField(false);}break;
 
     case Qt::Key_Right:{m_imageSlider->moveSliderRelative(1);}break;
     case Qt::Key_Left:{m_imageSlider->moveSliderRelative(-1);}break;

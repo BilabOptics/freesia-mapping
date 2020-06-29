@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = freesia-2.0.2
+TARGET = freesia-2.0.2-rc5
 TEMPLATE = app
 
 RC_FILE = app.rc
@@ -16,6 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 QMAKE_LFLAGS_RELEASE += /MAP
 QMAKE_CXXFLAGS_RELEASE += /Zi
 QMAKE_LFLAGS_RELEASE += /debug /opt:ref
+
+INCLUDEPATH += $$(LIB_PATH)\zlib-1.2.11
+LIBS += -L"$$(LIB_PATH)\zlib-1.2.11\contrib\vstudio\vc14\x64\ZlibDllRelease" -lzlibwapi
 
 include(dependencies.pri)
 
@@ -32,7 +35,8 @@ SOURCES += main.cpp\
     volumeviewer.cpp \
     viewerpanel.cpp \
     sectionviewer.cpp \
-    importexportdialog.cpp
+    importexportdialog.cpp \
+    ../../lab-works/flsm/tstorm-control/processing/imagewriter.cpp
 
 HEADERS  += mainwindow.h \
     common.h \
@@ -46,7 +50,8 @@ HEADERS  += mainwindow.h \
     volumeviewer.h \
     viewerpanel.h \
     sectionviewer.h \
-    importexportdialog.h
+    importexportdialog.h \
+    ../../lab-works/flsm/tstorm-control/processing/imagewriter.h
 
 RESOURCES += \
     assets.qrc

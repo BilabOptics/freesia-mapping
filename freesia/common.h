@@ -51,7 +51,7 @@ signals:
     void toggleWarpPreview();void toggleShowSpots();
 
     void importDirectory();void importSpotsDirectory();
-    void exportCellCounting();void mergeCellCounting();
+    void exportCellCounting();void exportPixelCounting();void mergeCellCounting();
     void loadProject();void saveProject(bool bSaveAs);
 public slots:
 };

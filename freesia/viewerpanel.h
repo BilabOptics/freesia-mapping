@@ -28,7 +28,7 @@ class ViewerPanel : public QWidget
     Q_OBJECT
 
     std::atomic_int m_regionNextColor,m_nextWarpType;
-    std::atomic<QString*> m_projectPathPtr,m_projectPath2Save,m_exportPath,m_mergePath,m_spotsPath2Import;
+    std::atomic<QString*> m_projectPathPtr,m_projectPath2Save,m_exportPath,m_exportPixelPath,m_mergePath,m_spotsPath2Import;
 
     TransformParameters *m_params3d,*m_params3dSaved;
     QMap<int,Group*> m_groups;Group *m_currentGroup;
@@ -50,12 +50,13 @@ class ViewerPanel : public QWidget
 
     bool loadProject();
     bool importDirectory();void importSpots();
-    void exportCellCounting();void mergeCellCounting();
+    void exportCellCounting();void exportPixelCounting();void mergeCellCounting();
     void loadImages();void saveProject();
 
     bool selectRegion();
     bool updateImages();void transform3d(bool bForced=false);void transform2d();
     void buildWarpField();void buildWarpField(int sliceIndex,cv::Mat &warpField,bool bInversed);
+    void exportWarpFields(const QString &outputPath);
 public:
     explicit ViewerPanel();
     ~ViewerPanel();
@@ -64,7 +65,7 @@ signals:
 
 private slots:
     void onImportDirectory();void onImportSpots();
-    void onExportCellCounting();void onMergeCellCounting();
+    void onExportCellCounting();void onExportPixelCounting();void onMergeCellCounting();
     void onLoadProject();
     void onSaveProject(bool bSaveAs);
 };

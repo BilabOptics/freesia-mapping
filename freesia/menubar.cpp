@@ -20,14 +20,15 @@ void MenuBar::initFileMenu(){
     menu->addAction("Import images",c,&Common::importDirectory);
     menu->addAction("Import spots",c,&Common::importSpotsDirectory);
     menu->addAction("Export cell counting result",c,&Common::exportCellCounting);
-    menu->addAction("Merge cell counting result",c,&Common::mergeCellCounting);
+    menu->addAction("Export pixel counting result",c,&Common::exportPixelCounting);
+    menu->addAction("Merge counting result",c,&Common::mergeCellCounting);
 }
 
 void MenuBar::initEditMenu(){
     QMenu *menu=addMenu("Edit");Common *c=Common::i();
 
     menu->addAction("Build warp field",[c](){emit c->buildWarpField(false);},QKeySequence(Qt::CTRL|Qt::Key_B));
-    menu->addAction("Build all warp fields",[c](){emit c->buildWarpField(true);});
+//    menu->addAction("Build all warp fields",[c](){emit c->buildWarpField(true);});
     menu->addAction("Remove all markers in current group",c,&Common::removeCurrentMarkers);
 }
 
