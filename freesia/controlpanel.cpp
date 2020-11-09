@@ -14,7 +14,7 @@
 class SpinBox:public QDoubleSpinBox{
 public:
     SpinBox(int type){
-        if(0==type){setRange(-90,90);setSingleStep(1);}
+        if(0==type){setRange(-180,180);setSingleStep(1);}
         else if(1==type){setRange(-100000,100000);setSingleStep(20);setDecimals(0);}
         else if(2==type){setValue(1);setRange(0.1,10);setDecimals(3);setSingleStep(0.002);}
 
