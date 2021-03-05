@@ -12,7 +12,7 @@
 #include <QVariant>
 #include <QVariantMap>
 
-Common::Common():p_selectionMode(1),p_params3d(nullptr),p_params2d(nullptr),p_bWarpPreview(false),
+Common::Common():p_selectionMode(1),p_atlasIndex(-1),p_params3d(nullptr),p_params2d(nullptr),p_bWarpPreview(false),
     p_softwareName(QFileInfo(QApplication::applicationFilePath()).completeBaseName()){
 
     m_configFolderPath=QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation)+"/VISoR/freesia/";

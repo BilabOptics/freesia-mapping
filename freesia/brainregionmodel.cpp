@@ -18,7 +18,8 @@ using namespace cv;
 BrainRegionModel::BrainRegionModel():m_modelFolderPath(QApplication::applicationDirPath()+"/data/"),
     m_selectModelIndex(0),m_voxels(nullptr){
 
-    Common *c=Common::i();QVariantMap info;
+    Common *c=Common::i();QVariantMap info;qDebug()<<m_selectModelIndex;
+    if(c->p_atlasIndex>=0){m_selectModelIndex=c->p_atlasIndex;}
     if(!Common::loadJson(m_modelFolderPath+"freesia-atlas.json",info)){emit c->showMessage("Unable to load brain model information");return;}
 
     foreach(QVariant v,info["atlas"].toList()){

@@ -27,6 +27,7 @@ public:
     static Common *i(){static Common c;return &c;}
 
     const QString p_softwareName;std::atomic_int p_selectionMode;
+    int p_atlasIndex;
     std::atomic<TransformParameters*> p_params3d,p_params2d;
     std::atomic_bool p_bWarpPreview;
 

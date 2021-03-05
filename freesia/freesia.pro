@@ -2,8 +2,9 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = freesia-2.0.2-rc6
+TARGET = freesia-2.0.2-rc7
 TEMPLATE = app
+#CONFIG += console
 
 RC_FILE = app.rc
 
