@@ -37,7 +37,7 @@ SOURCES += main.cpp\
     viewerpanel.cpp \
     sectionviewer.cpp \
     importexportdialog.cpp \
-    ../../lab-works/flsm/tstorm-control/processing/imagewriter.cpp
+    imagewriter.cpp
 
 HEADERS  += mainwindow.h \
     common.h \
@@ -52,7 +52,7 @@ HEADERS  += mainwindow.h \
     viewerpanel.h \
     sectionviewer.h \
     importexportdialog.h \
-    ../../lab-works/flsm/tstorm-control/processing/imagewriter.h
+    imagewriter.h
 
 RESOURCES += \
     assets.qrc
