@@ -354,4 +354,11 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+*.pem
+.DS_Store
+
+*-generated.cpp
+*-generated.h
+.vscode
+build/
 dependencies.pri

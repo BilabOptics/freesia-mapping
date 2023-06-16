@@ -3,18 +3,20 @@
 
 #include <QMenuBar>
 
-class MenuBar : public QMenuBar
-{
-    Q_OBJECT
+class MenuBar : public QMenuBar {
+  Q_OBJECT
 
-    void initFileMenu();void initEditMenu();void initViewMenu();
-    void initHelpMenu();
-public:
-    explicit MenuBar();
+  void initFileMenu();
+  void initEditMenu();
+  void initViewMenu();
+  void initHelpMenu();
 
-signals:
+ public:
+  explicit MenuBar();
 
-public slots:
+ signals:
+
+ public slots:
 };
 
-#endif // MENUBAR_H
+#endif  // MENUBAR_H

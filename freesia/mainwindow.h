@@ -3,23 +3,24 @@
 
 #include <QMainWindow>
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+  Q_OBJECT
 
-    bool m_bEdited;
-    QString m_title,m_fileName,m_status;
+  bool m_bEdited;
+  QString m_title, m_fileName, m_status;
 
-    void updateTitle();
-public:
-    MainWindow();
-    ~MainWindow();
+  void updateTitle();
 
-private slots:
-    void setEditedState(bool);
-    void setProjectFileName(QString);
-protected:
-    void closeEvent(QCloseEvent* e);
+ public:
+  MainWindow();
+  ~MainWindow();
+
+ private slots:
+  void setEditedState(bool);
+  void setProjectFileName(QString);
+
+ protected:
+  void closeEvent(QCloseEvent *e);
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

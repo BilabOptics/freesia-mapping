@@ -9,25 +9,27 @@ class QDoubleSpinBox;
 class QSpinBox;
 QT_END_NAMESPACE
 
-struct ImportParams{
-    double voxels[2];QString path;int groupSize;
+struct ImportParams {
+  double voxels[2];
+  QString path;
+  int groupSize;
 };
 
-class ImportDialog : public QDialog
-{
-    Q_OBJECT
+class ImportDialog : public QDialog {
+  Q_OBJECT
 
-    PathEdit *m_pathEdit;
-    QDoubleSpinBox *m_voxelBoxes[2];
-    QSpinBox *m_groupSizeBox;
-public:
-    explicit ImportDialog();
-    ~ImportDialog();
+  PathEdit *m_pathEdit;
+  QDoubleSpinBox *m_voxelBoxes[2];
+  QSpinBox *m_groupSizeBox;
 
-    bool getParameters(ImportParams &p);
-signals:
+ public:
+  explicit ImportDialog();
+  ~ImportDialog();
 
-public slots:
+  bool getParameters(ImportParams &p);
+ signals:
+
+ public slots:
 };
 
-#endif // IMPORTEXPORTDIALOG_H
+#endif  // IMPORTEXPORTDIALOG_H

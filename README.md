@@ -1,34 +1,52 @@
-# freesia-mapping
+# freesia-atlas-cell-counting
 
-Freesia is a software designed to manually register histological slice images to the Allen Mouse Common Coordinate Framework ([CCF v3](https://scalablebrainatlas.incf.org/mouse/ABA_v3)).
+Freesia is a software specifically developed for the manual registration of histological slice images to the Allen Mouse Common Coordinate Framework ([CCF v3](https://scalablebrainatlas.incf.org/mouse/ABA_v3)). It can take cell identification results obtained from software such as [Imaris](https://imaris.oxinst.com/) or [ilastik](https://www.ilastik.org/), and generate a cell counting list for brain regions (refer to [PI C et al. Mol Brain. 2022](https://doi.org/10.1186/s13041-022-00985-w)).
 
 ![freesia](doc/images/freesia.png)
 
 ## Basic usage
 
-The whole procedure of images registration in freesia consists of 3 parts, 3d rigid transform on CCF, 2d rigid transform on images and 2d deformation on images. Currently, all images in the same data set need to have the same size and brain slices in the images need to be roughly centered and rotation-free. 3d/2d rigid transform is controlled by right-top/middle panel, which consists of 3d/2d rotation, translation and scaling. 2d deformation is a key point-based method which requires some manually labeled point pairs. More detailed information can be found in [doc/usage.md](doc/usage.md).
+The image registration process in freesia consists of three parts: 3D rigid transform on CCF, 2D rigid transform on images, and 2D deformation on images. It is important to note that all images in the same dataset should have the same size, and the brain slices in the images should be approximately centered and rotation-free.
+
+The control for 3D/2D rigid transform is located in the right-top/middle panel, which includes options for 3D/2D rotation, translation, and scaling. On the other hand, 2D deformation is performed using a key point-based method, which requires manually labeled point pairs.
+
+For more detailed information about the usage, please refer to [this document](doc/usage.md).
 
 ## Demo data
 
-A image with detected cells list were contained in folder *demo-data*, within the "all-in-one" software release bundle. Import image or Load *json* project to see how it works. Image sequences are also supported and you can try it on your own dataset.
+Within the "demo-data" folder of the "all-in-one" software release bundle, you will find an image along with a corresponding detected cells list. You can import the image or load the provided JSON project to see how the software works. It is worth mentioning that image sequences are also supported, so you can try it out on your own dataset by following the same process.
 
 ## Building the code
 
-Currently this program can only be compiled and run on Windows 64-bit systems.
+Currently, the software is only supported on Windows. To build the code, you need to install some dependencies first. The following instructions are tested on Windows 10 with Visual Studio 2019.
 
-Before building the code, the following prerequisites be must be compiled and installed.
+First, install the dependencies in [vcpkg](https://vcpkg.io):
+    
+```bash
+./vcpkg install opencv:x64-windows vtk[qt,opengl]:x64-windows
+```
 
-* [Qt](https://www.qt.io/) 5.9.8 with compiler msvc2015_64 (v140)
-* [VTK](https://vtk.org/) 8.2.0 with VTK_Group_Qt and VTK_ENABLE_KITS enabled
-* [OpenCV](https://opencv.org/) 3.4.0 with BUILD_opencv_world enabled
-* [nn-c](https://github.com/sakov/nn-c), a library for interpolation of 2D scattered data. Here we use our modified version [nn-c-windows](https://github.com/dinglufe/nn-c-windows) to make it easier to build on Windows 64-bit platform.
+And build the [nn-c-windows](https://github.com/dinglufe/nn-c-windows)
 
-This repository uses a *WordPress-like* configuration strategy instead of *git submodules*. Copy file *dependencies.pri.tmpl* to *dependencies.pri* and modify *dependencies.pri* according to the actual  locations of the dependencies, and then the code can be compiled in Qt Creator under release mode.
+The released software is built using Visual Studio Code with `.vscode/settings.json` like this:
 
-The icon of freesia comes from [pixabay](https://pixabay.com/photos/flowers-yellow-flowers-freesia-1766876/).
+```json
+{
+    "cmake.cmakePath": "/path/to/cmake-3.21.1-windows-x86_64/bin/cmake.exe",
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "NN_DIR": "/path/to/nn-c-windows",
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "CMAKE_BUILD_TYPE": "Relwithdebinfo"
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/build/2.1.0",
+    "cmake.generator": "Ninja"
+}
+```
 
-[3D Slicer](https://www.slicer.org/) was heavily referenced in software development.
 
 ## License
 
-[Apache License version 2.0](https://www.apache.org/licenses/LICENSE-2.0), without commercial permission.
+Freesia is available for free use and modification, but it is copyrighted by the author and may not be sold or included in commercial products.
+
+Feedback and feature requests are welcome :rocket:.

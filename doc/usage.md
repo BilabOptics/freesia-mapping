@@ -1,49 +1,78 @@
-> This document provides a description of freesia data model and basic user operation.
+> This document provides an overview of the freesia data model and basic user operations.
 
-There are 3 levels in freesia data model, the whole data set, image groups and images. All images in the same group undergo the same transformation. A image group can contain one or more images, which depends on the imaging strategy. For traditional thin slice 2D imaging, the number is one. For thick slice 3D imaging like [VISoR](https://doi.org/10.1093/nsr/nwz053), the number is 15 in our case (300 μm per slice). For whole brain 3D imaging like [fMost](https://www.nature.com/articles/ncomms12142) and [MouseLight](https://www.janelia.org/project-team/mouselight), it can be any number you want which depends on how precise you expect your results.
+The freesia data model consists of three levels: the whole dataset, image groups, and individual images. All images within the same group undergo the same transformation process. An image group can contain one or more images, depending on the imaging strategy employed. For traditional thin slice 2D imaging, there is typically only one image per group. For 3D imaging, there are multiple images per group. 
 
 ## Data import
 
-Click menu *File ->* *Import images* and *Import spots* to import downsample coronal section images and detected cells list. The group size need to be set when you importing images, as well as image voxel size. All images will be loaded and transferred to graphics card memory, so the voxel size should not be large and 20 μm is a good option since the voxel size of the CCF v3 is 25 μm. Coordinates in spots file must be in micrometers.
+To import downsampled coronal section images and a detected cell list, follow these steps:
 
-Currently, only 16-bit and 8-bit grayscale image can be imported into freesia.
+1. Click on the File menu.
+2. Select Import images to import the coronal section images.
+3. Select Import spots to import the detected cells list.
+
+When importing images, you need to specify the group size and image voxel size. It is important to note that all images will be loaded and transferred to the graphics card memory. Therefore, it is recommended to use a voxel size that is not too large. A voxel size of 20 μm is a good option, considering that the voxel size of the CCF v3 is 25 μm.
+
+Please ensure that the coordinates in the spots file are specified in micrometers.
+
+Currently, freesia supports the import of 16-bit and 8-bit grayscale images.
 
 ## Basic operation
 
-There are 4 viewers in freesia, each with the following operations:
-* double left mouse click: maximize or restore viewer
-* Control(holding) + left mouse click: see which brain region here is
-* Shift(holding) + left mouse drag or middle mouse drag: drag image
-* Press R or double middle mouse click: reset viewer
+freesia provides four viewers, each with its own set of operations:
 
-For 3D viewer (right-top viewer):
-* left mouse drag: rotate data
-* right mouse drag: zoom in or out
+### General Viewer Operations (Applicable to all viewers)
+- **Double-click the left mouse button.**: Maximize or restore viewer.
+- **Hold down the Control key and left-click the mouse**: Identify the brain region corresponding to the clicked location.
+- **Press the Shift key and drag the left mouse button**: Drag the image within the viewer.
+- **Press the R key or double-click the middle mouse button**: Reset the viewer.
 
-For three view:
-* left/right arrow key: step backward/forward
+### 3D Viewer Operations (Top-right viewer)
+- **Press and move the left mouse button.**: Rotate the data.
+- **Press and move the right mouse button.**: Zoom in or out.
 
-For coronal section viewer (left-top):
-* pageup/pagedown: switch to previous/next group
+### Three View Operations (Three-view display)
+- **Press the left/right arrow key**: Step backward/forward through the views.
+
+### Coronal Section Viewer Operations (Top-left viewer)
+- **Press the Page Up/Page Down key**: Switch to the previous/next image group.
+
+Please note that each viewer has specific operations that provide different functionalities to enhance the viewing experience in freesia.
 
 ## Rigid transform
 
-3d rigid transform will be applied to CCF while 2d transform only apply to all images in corresponding group. 
+The CCF undergoes a 3D rigid transform, while the 2D transform is exclusively applied to all images within the corresponding group.
 
 ## Warp transform
 
-All operations of warp transform can only be done in coronal section viewer (left-top) and you can double click on it to hide other viewers. 
+In freesia, the operations related to the warp transform are specifically performed in the coronal section viewer (left-top), where you can double-click to hide other viewers.
 
-For coronal section viewer (left-top):
-* Press Z(holding) + left mouse click: Add marker point for warp transform with 2 points a pair. Press space key to add point pair to system or press esc to cancel editing this pair. 
-* Press X(holding) + left mouse move: Hover effect on nearest existing pairs
-* Press X(holding) + left mouse click: Select a pair which is in hover state
-* Press delete: Remove selected pair
+For the coronal section viewer (left-top), the following operations are available:
 
-Each warp marker consists of 2 points, from point on image to point on CCF. The first point will move along with image after being added to system.
+- **Hold down the Z key and left-click the mouse**: Add marker points for the warp transform, using pairs of two points. Press the space key to add the point pair to the system, or press esc to cancel editing this pair.
+- **Hold down the X key and move the mouse**: Activate the hover effect on the nearest existing point pairs.
+- **Hold down the X key and left-click the mouse**: Select a pair that is in the hover state.
+- **Press the delete key**: Remove the selected point pair.
 
-Click menu *Edit* -> *Build warp field* or *Build all warp fields* to build deformation fields for current group or all groups. Click menu *View* -> *Toggle warp preview* to switch if show images after deformation. Markers can only be edited in non-preview mode.
+Each warp marker consists of two points: one on the image and one on the CCF. The first point will move along with the image once it is added to the system.
+
+To build deformation fields, you can click on the *Edit* menu and select either *Build warp field* for the current group or *Build all warp fields* for all groups. Additionally, you can toggle the warp preview by clicking on the *View* menu and selecting *Toggle warp preview*. Please note that markers can only be edited in the non-preview mode.
+
+These operations allow for precise editing of the warp markers and the generation of deformation fields for the desired groups in freesia.
 
 ## Export cell-counting results
 
-Click menu *File* -> *Export cell counting results* to create cell counting results(.json) for every images. And the click menu *File* -> *Merge cell counting results* to merge cell counting results(.json) and a file *cell-counting.csv* will be generated in the same direcotry of input. Cells number and density(number/μm3).
+To export cell counting results in freesia, you can follow these steps:
+
+1. Click on the *File* menu.
+2. Select *Export cell counting results* option.
+3. This action will generate cell counting results in the form of a .json file for each image.
+
+Additionally, if you want to merge the cell counting results, you can perform the following steps:
+
+1. Click on the *File* menu.
+2. Select *Merge cell counting results* option.
+3. This will merge the individual .json files into a single file named *cell-counting.csv*.
+4. The *cell-counting.csv* file will be generated in the same directory as the input files.
+5. The file will contain information such as the number of cells and cell density ($number/μm^3$).
+
+These export and merge operations allow you to obtain comprehensive cell counting results for your images in freesia.
